@@ -1,0 +1,10 @@
+.task__block{
+    display: flex;
+    justify-content: space-between;
+}
+.task__text{
+    font-size: 18px;
+}
+.task__remove{
+    padding: 5px 10px;
+}
