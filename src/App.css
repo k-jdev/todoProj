@@ -19,3 +19,8 @@
     display: grid;
     justify-content: center;
 }
+.todo__all-tasks{
+  margin: 0px 500px;
+  display: flex;
+  justify-content: space-between;
+}

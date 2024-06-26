@@ -8,3 +8,10 @@
 .task__remove{
     padding: 5px 10px;
 }
+.task-text{
+    font-size: 18px;
+    margin-right: 15px;
+}
+.buttons{
+    gap: 5px;
+}
