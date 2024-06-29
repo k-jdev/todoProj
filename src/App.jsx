@@ -5,8 +5,9 @@ import Task from "./components/Task/Task";
 function App() {
   const [text, setText] = React.useState("");
   const [tasks, setTasks] = React.useState([]);
+  const [hiddenText, setHidenText] = React.useState(false);
 
-  // Сохранение задач в localStorage при изменении задач
+  // Збреження задач в localStorage при змнінені
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
@@ -17,12 +18,12 @@ function App() {
     setTasks(storedTasks);
   }, []);
 
-  // Удаление задачи
+  // Видалення задачі
   function removeTask(id) {
     setTasks((prevState) => prevState.filter((task) => task.id !== id));
   }
 
-  // Переключение выполнения задачи
+  // Переключення задачі
   function toggleTaskCompletion(id) {
     setTasks((prevState) =>
       prevState.map((task) =>
@@ -31,7 +32,7 @@ function App() {
     );
   }
 
-  // Создание новой задачи
+  // Створення нової заадчі
   function createTask() {
     if (text.trim()) {
       const newTask = { id: Date.now(), text: text, completed: false };
@@ -40,10 +41,16 @@ function App() {
     }
   }
 
+  function hideText() {
+    setHidenText((prevState) => !prevState);
+  }
+
   return (
     <>
       <div className="todo">
-        <h1>ToDo</h1>
+        <h1 className="todo__main-text">
+          To<span className="todo__main-text__span">Do</span>
+        </h1>
         <div className="todo__block">
           <input
             onChange={(e) => setText(e.target.value)}
@@ -54,48 +61,63 @@ function App() {
             Send
           </button>
         </div>
-
-        {tasks.map((task) => (
-          <Task
-            key={task.id}
-            id={task.id}
-            text={task.text}
-            completed={task.completed}
-            removeTask={removeTask}
-            toggleTaskCompletion={toggleTaskCompletion}
-          />
-        ))}
+        {!hiddenText && (
+          <>
+            {tasks.map((task) => (
+              <Task
+                key={task.id}
+                id={task.id}
+                text={task.text}
+                completed={task.completed}
+                removeTask={removeTask}
+                toggleTaskCompletion={toggleTaskCompletion}
+              />
+            ))}
+          </>
+        )}
       </div>
       <div className="todo__all-tasks">
         <div className="todo__active-tasks">
-          <h2>Active tasks</h2>
-          {tasks
-            .filter((task) => !task.completed)
-            .map((task) => (
-              <Task
-                key={task.id}
-                id={task.id}
-                text={task.text}
-                completed={task.completed}
-                removeTask={removeTask}
-                toggleTaskCompletion={toggleTaskCompletion}
-              />
-            ))}
+          <h2 onClick={hideText} className="active-tasks__text">
+            Active Tasks
+          </h2>
+          {!hiddenText && (
+            <>
+              {tasks
+                .filter((task) => !task.completed)
+                .map((task) => (
+                  <Task
+                    key={task.id}
+                    id={task.id}
+                    text={task.text}
+                    completed={task.completed}
+                    removeTask={removeTask}
+                    toggleTaskCompletion={toggleTaskCompletion}
+                  />
+                ))}
+            </>
+          )}
         </div>
         <div className="todo__complete-tasks">
-          <h2>Complete tasks</h2>
-          {tasks
-            .filter((task) => task.completed)
-            .map((task) => (
-              <Task
-                key={task.id}
-                id={task.id}
-                text={task.text}
-                completed={task.completed}
-                removeTask={removeTask}
-                toggleTaskCompletion={toggleTaskCompletion}
-              />
-            ))}
+          <h2 onClick={hideText} className="complete-task__text">
+            Complete tasks
+          </h2>
+          {!hiddenText && (
+            <>
+              {tasks
+                .filter((task) => !task.completed)
+                .map((task) => (
+                  <Task
+                    key={task.id}
+                    id={task.id}
+                    text={task.text}
+                    completed={task.completed}
+                    removeTask={removeTask}
+                    toggleTaskCompletion={toggleTaskCompletion}
+                  />
+                ))}
+            </>
+          )}
         </div>
       </div>
     </>

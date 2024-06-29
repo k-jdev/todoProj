@@ -1,3 +1,12 @@
+.todo{
+    display: grid;
+}
+.todo__main-text{
+  font-size: 32px;
+}
+.todo__main-text__span{
+  color: #5128b1;
+}
 .todo__block{
     display: flex;
     gap: 10px;
@@ -8,19 +17,29 @@
     background-color: #4c445f;
     color: aliceblue;
     padding: 5px 15px;
-    border-radius: 10px;
+    border-radius: 7px;
   }
 .todo__send-btn:hover{
     transform: scale(1.2);
     transition: 0.1s;
   }
 
-.todo{
-    display: grid;
-    justify-content: center;
-}
 .todo__all-tasks{
   margin: 0px 500px;
   display: flex;
   justify-content: space-between;
+}
+
+.todo__active-tasks{
+  background-color: #3e3d41;
+  padding: 5px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.todo__complete-tasks{
+  background-color: #3e3d41;
+  padding: 5px 10px;
+  border-radius: 8px;
+  cursor: pointer;
 }
